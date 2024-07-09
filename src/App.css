@@ -1,42 +1,109 @@
+:root {
+  --background-light: #e7e5e4;
+  --text-light: #292524;
+  --background-dark: #333;
+  --text-dark: #e2e8f0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.light {
+  background-color: var(--background-light);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  footer {
+    color: var(--text-light);
+    svg {
+      path {
+        fill: var(--text-light);
+      }
+    }
+    a:hover svg {
+      path {
+        fill: #a8a29e;
+      }
+    }
+  }
+  hr {
+    border: 1px solid var(--text-light);
+  }
+  .comments {
+    color: var(--text-light);
+  }
+  .postPage {
+    color: var(--text-light);
+  }
+
+  .header,
+  .postCard,
+  form {
+    background-color: #e2e8f0;
+    color: var(--text-light);
+  }
+}
+
+.dark {
+  background-color: var(--background-dark);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header {
+    color: var(--text-dark);
+  }
+  hr {
+    border: 1px solid var(--text-dark);
+  }
+  .comments {
+    color: var(--text-dark);
+  }
+  .comment {
+    background-color: #475569;
+    color: var(--text-dark);
+    border: 1px solid var(--text-dark);
+    border-radius: 0.5rem;
+  }
+
+  footer {
+    background-color: #333;
+    color: #fff;
+    svg {
+      path {
+        fill: var(--text-dark);
+      }
+    }
+    a:hover svg {
+      path {
+        fill: #a8a29e;
+      }
+    }
+  }
+  .header {
+    background-color: var(--background-dark);
+  }
+
+  .postCard,
+  form {
+    background-color: #475569;
+    color: var(--text-dark);
+  }
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
