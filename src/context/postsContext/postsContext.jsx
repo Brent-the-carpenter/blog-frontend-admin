@@ -1,6 +1,6 @@
 import { createContext, useMemo } from "react";
 import propTypes from "prop-types";
-import useGetPosts from "../api/hooks/useGetPosts";
+import useGetPosts from "../../api/hooks/useGetPosts";
 import { DateTime } from "luxon";
 
 export const PostsContext = createContext({

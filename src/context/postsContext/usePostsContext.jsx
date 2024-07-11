@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PostsContext } from "../postsContext";
+import { PostsContext } from "./postsContext";
 
 const usePostsContext = () => useContext(PostsContext);
 

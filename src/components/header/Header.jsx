@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Login from "../Login/Login";
 import PropTypes from "prop-types";
 import { useState, useRef, useEffect } from "react";
-import useUserContext from "../../context/contextHooks/userHook";
+import useUserContext from "../../context/userContext/userHook";
 import useLogout from "../../api/hooks/useLogout";
 function Header({ setTheme, theme }) {
   const [showLogin, setShowLogin] = useState(false);

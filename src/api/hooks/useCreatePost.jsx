@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import POST_Blog from "../fetch/POSTBLOG";
-import useUserContext from "../../context/contextHooks/userHook";
+import useUserContext from "../../context/userContext/userHook";
 
 const useCreatePost = () => {
   const [success, setSuccess] = useState(null);

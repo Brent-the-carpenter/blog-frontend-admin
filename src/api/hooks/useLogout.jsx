@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import logout from "../fetch/POSTLogout";
-import useUserContext from "../../context/contextHooks/userHook";
+import useUserContext from "../../context/userContext/userHook";
 const useLogout = () => {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);

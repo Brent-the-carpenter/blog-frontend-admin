@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import Login from "../fetch/POSTLogin";
-import useUserContext from "../../context/contextHooks/userHook";
+import useUserContext from "../../context/userContext/userHook";
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);

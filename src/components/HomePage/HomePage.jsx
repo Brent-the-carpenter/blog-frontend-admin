@@ -1,4 +1,4 @@
-import useUserContext from "../../context/contextHooks/userHook";
+import useUserContext from "../../context/userContext/userHook";
 import { Link } from "react-router-dom";
 function HomePage() {
   const { token, userName } = useUserContext();

@@ -1,4 +1,3 @@
-/*cSpell: disable */
 import { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import useCreatePost from "../../api/hooks/useCreatePost";
@@ -9,6 +8,7 @@ function CreatePost() {
   const [Title, setTitle] = useState("");
   const [Category, setCategory] = useState("");
   const [published, setPublished] = useState(false);
+  const [thumbNail, setThumbNail] = useState(null);
 
   const { success, error, createPost } = useCreatePost();
 
@@ -76,11 +76,21 @@ function CreatePost() {
       }
     }
 
+    let thumbNailURL = "";
+    if (thumbNail) {
+      try {
+        thumbNailURL = await uploadImage(thumbNail);
+      } catch (error) {
+        console.error("Failed to upload thumbnail:", error);
+      }
+    }
+
     const BlogPost = {
       content,
       category: Category,
       title: Title,
       published,
+      thumbNail: thumbNailURL,
     };
 
     createPost(BlogPost);
@@ -92,7 +102,7 @@ function CreatePost() {
   if (error) {
     return (
       <div>
-        <h1 className="error text-red-800">{error.message}</h1>{" "}
+        <h1 className="error text-red-800">{error.message}</h1>
         <h1 className="error text-red-800">Status: {error.status}</h1>
       </div>
     );
@@ -105,6 +115,7 @@ function CreatePost() {
         setPublished={setPublished}
         setTitle={setTitle}
         published={published}
+        setThumbNail={setThumbNail}
       />
       <Editor
         apiKey={import.meta.env.VITE_TinyMCE_API_KEY}

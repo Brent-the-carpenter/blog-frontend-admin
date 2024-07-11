@@ -1,9 +1,15 @@
 import PropTypes from "prop-types";
 
-function CreatePostHeader({ setTitle, setCategory, setPublished, published }) {
+function CreatePostHeader({
+  setTitle,
+  setCategory,
+  setPublished,
+  published,
+  setThumbnail,
+}) {
   return (
-    <div className="flex justify-center gap-4">
-      <div className="formControl">
+    <div className=" flex  justify-start gap-4  flex-wrap max-md:flex-col mb-2">
+      <div className="createPostHeader ">
         <label htmlFor="title">Blog Post Title:</label>
         <input
           type="text"
@@ -12,7 +18,7 @@ function CreatePostHeader({ setTitle, setCategory, setPublished, published }) {
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
-      <div>
+      <div className="createPostHeader w-6">
         <select
           name="category"
           id="category"
@@ -24,7 +30,16 @@ function CreatePostHeader({ setTitle, setCategory, setPublished, published }) {
           <option value="other">Other</option>
         </select>
       </div>
-      <div>
+      <div className="createPostHeader  items-center">
+        <label htmlFor="thumb_nail">Thumb nail</label>
+        <input
+          type="file"
+          name="thumb_nail"
+          id="thumb_nail"
+          onChange={(e) => setThumbnail(e.target.files[0])}
+        />
+      </div>
+      <div className="createPostHeader ">
         <label htmlFor="published">Publish:</label>
         <input
           type="checkbox"
@@ -43,6 +58,7 @@ CreatePostHeader.propTypes = {
   setCategory: PropTypes.func.isRequired,
   setPublished: PropTypes.func.isRequired,
   published: PropTypes.bool.isRequired,
+  setThumbnail: PropTypes.func.isRequired,
 };
 
 export default CreatePostHeader;

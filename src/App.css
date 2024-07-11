@@ -4,10 +4,33 @@
   --background-dark: #333;
   --text-dark: #e2e8f0;
 }
+@font-face {
+  font-family: "MontserratHeadings";
+  src: url("../src/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "MontserratBody";
+  src: url("../src/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 html,
 body {
   height: 100%;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "MontserratHeadings", serif;
+  }
+  font-family: "MontserratBody", sans-serif;
 }
 
 .light {
@@ -44,7 +67,6 @@ body {
   }
 
   .header,
-  .postCard,
   form {
     background-color: #e2e8f0;
     color: var(--text-light);
