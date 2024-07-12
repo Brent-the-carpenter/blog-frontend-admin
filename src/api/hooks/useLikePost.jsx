@@ -1,6 +1,6 @@
 import likePOST from "../fetch/POSTLikePost";
 import { useState, useCallback } from "react";
-import useUserContext from "../../context/contextHooks/userHook";
+import useUserContext from "../../context/userContext/userHook";
 const useLikePost = () => {
   const [like, setLike] = useState(false);
   const [success, setSuccess] = useState(false);

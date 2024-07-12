@@ -1,5 +1,5 @@
 import POST_Comment from "../fetch/POST_Comment";
-import useUserContext from "../../context/contextHooks/userHook";
+import useUserContext from "../../context/userContext/userHook";
 import { useState, useCallback } from "react";
 import { DateTime } from "luxon";
 const usePostComment = () => {

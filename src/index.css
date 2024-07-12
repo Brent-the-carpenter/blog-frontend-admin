@@ -18,10 +18,10 @@
 }
 @layer components {
   .btn {
-    @apply w-28 content-center rounded bg-slate-400 px-4 py-2 align-middle font-bold text-white shadow-md transition-colors hover:bg-blue-700 hover:transition-colors;
+    @apply min-w-min content-center rounded bg-slate-400 px-4 py-2 align-middle font-bold text-white shadow-md transition-colors hover:bg-blue-700 hover:transition-colors;
   }
   .postCard {
-    @apply grid min-w-96 max-w-lg grid-cols-4  grid-rows-3 rounded-lg p-4;
+    @apply flex  rounded-lg p-4;
   }
   .postPage {
     @apply m-0 justify-center self-center rounded-lg p-0 align-middle max-sm:w-96 sm:w-3/4 md:w-3/4;

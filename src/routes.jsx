@@ -2,6 +2,7 @@ import App from "./App";
 import HomePage from "./components/HomePage/HomePage";
 import CreatePost from "./components/CreatePost/CreatePostPage";
 import Posts from "./components/PostsPage/Posts";
+import PostPage from "./components/postPage/postPage";
 const routes = [
   {
     path: "/",
@@ -11,6 +12,7 @@ const routes = [
       { index: true, element: <HomePage /> },
       { path: "/createPost", element: <CreatePost /> },
       { path: "/posts", element: <Posts /> },
+      { path: "/posts/:postId", element: <PostPage /> },
     ],
   },
 ];
