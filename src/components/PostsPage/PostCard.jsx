@@ -24,7 +24,7 @@ export default function PostCard({ post, setDeletePostMsg }) {
             Delete post
           </button>
           <Link
-            to={"/posts/" + post._id + "/update"}
+            to={`/posts/${post._id}/update`}
             className="btn col-start-6 row-start-3 row-end-4 justify-self-center"
           >
             Update post
@@ -50,6 +50,7 @@ export default function PostCard({ post, setDeletePostMsg }) {
       </div>
       {showPostDelete && (
         <DeleteModel
+          key={post._id} // Adding a key prop here might not be necessary but ensures uniqueness
           setShowPostDelete={setShowPostDelete}
           postId={post._id}
           setDeletePostMsg={setDeletePostMsg}
@@ -72,6 +73,5 @@ PostCard.propTypes = {
       first_name: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  setUpdatePosts: PropTypes.func.isRequired,
   setDeletePostMsg: PropTypes.func.isRequired,
 };
