@@ -1,17 +1,19 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import useCreatePost from "../../api/hooks/useCreatePost";
 import CreatePostHeader from "./createPostHeader";
-
+import ErrorComponent from "../Error/error";
+import { useNavigate } from "react-router-dom";
 function CreatePost() {
   const editorRef = useRef(null);
-  const [Title, setTitle] = useState("");
-  const [Category, setCategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const [published, setPublished] = useState(false);
   const [thumbNail, setThumbNail] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { success, error, createPost } = useCreatePost();
-
+  const navigate = useNavigate();
   const extractImages = (htmlContent) => {
     const div = document.createElement("div");
     div.innerHTML = htmlContent;
@@ -48,7 +50,7 @@ function CreatePost() {
         throw new Error("Failed to upload image");
       }
 
-      const data = await response.json(); // Parse the JSON response
+      const data = await response.json();
       if (data.secure_url) {
         return data.secure_url;
       } else {
@@ -61,6 +63,7 @@ function CreatePost() {
   };
 
   const updateEditor = async () => {
+    setLoading(true);
     let content = editorRef.current.getContent();
     const images = extractImages(content);
 
@@ -76,7 +79,7 @@ function CreatePost() {
       }
     }
 
-    let thumbNailURL = "";
+    let thumbNailURL = null;
     if (thumbNail) {
       try {
         thumbNailURL = await uploadImage(thumbNail);
@@ -87,29 +90,38 @@ function CreatePost() {
 
     const BlogPost = {
       content,
-      category: Category,
-      title: Title,
+      category,
+      title,
       published,
-      thumbNail: thumbNailURL,
     };
+    if (thumbNailURL) {
+      BlogPost.thumbNail = thumbNailURL;
+    }
 
-    createPost(BlogPost);
+    try {
+      await createPost(BlogPost);
+    } catch (e) {
+      console.error("Error creating post:", e);
+    } finally {
+      setLoading(false);
+    }
   };
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        navigate("/posts");
+      }, 2000);
 
+      return () => clearTimeout(timer);
+    }
+  }, [success, navigate]);
   if (success) {
     return <h1>{success}</h1>;
-  }
-  if (error) {
-    return (
-      <div>
-        <h1 className="error text-red-800">{error.message}</h1>
-        <h1 className="error text-red-800">Status: {error.status}</h1>
-      </div>
-    );
   }
 
   return (
     <div className="h-full">
+      {error && <ErrorComponent error={error} />}
       <CreatePostHeader
         setCategory={setCategory}
         setPublished={setPublished}
@@ -128,21 +140,21 @@ function CreatePost() {
             "advlist autolink lists link image charmap preview anchor",
             "searchreplace visualblocks code fullscreen",
             "insertdatetime media table code help wordcount",
-            "image", // Add image plugin
-            "paste", // Add paste plugin to handle pasting images
+            "image",
+            "paste",
           ],
           toolbar:
             "undo redo | blocks | " +
             "bold italic forecolor | alignleft aligncenter " +
             "alignright alignjustify | bullist numlist outdent indent | " +
-            "removeformat | image | help", // Add image button to the toolbar
-          paste_data_images: true, // Enables pasting images as Base64
+            "removeformat | image | help",
+          paste_data_images: true,
           content_style:
             "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
         }}
       />
-      <button className="btn" onClick={updateEditor}>
-        Submit Blog Post
+      <button className="btn" onClick={updateEditor} disabled={loading}>
+        {loading ? "Submitting..." : "Submit Blog Post"}
       </button>
     </div>
   );

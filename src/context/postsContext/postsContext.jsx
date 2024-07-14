@@ -1,5 +1,11 @@
-import { createContext, useMemo } from "react";
-import propTypes from "prop-types";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
+import PropTypes from "prop-types";
 import useGetPosts from "../../api/hooks/useGetPosts";
 import { DateTime } from "luxon";
 
@@ -10,25 +16,35 @@ export const PostsContext = createContext({
 });
 
 const PostsProvider = ({ children }) => {
-  const { posts, loading, error } = useGetPosts();
-  console.log(error);
+  const { posts: fetchedPosts, loading, error } = useGetPosts();
+  const [posts, setPosts] = useState([]);
 
-  const formattedPosts = useMemo(() => {
-    return Array.isArray(posts)
-      ? posts.map((post) => ({
-          ...post,
-          createdAt: DateTime.fromISO(post.createdAt).toFormat("MM/dd/yyyy"),
-        }))
-      : [];
-  }, [posts]);
+  useEffect(() => {
+    if (Array.isArray(fetchedPosts)) {
+      const formatted = fetchedPosts.map((post) => ({
+        ...post,
+        createdAt: DateTime.fromISO(post.createdAt).toFormat("MM/dd/yyyy"),
+      }));
+      setPosts(formatted);
+    }
+  }, [fetchedPosts]);
+
+  const deletePostById = useCallback((postId) => {
+    setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+  }, []);
+  const addPost = useCallback((post) => {
+    setPosts((prevPosts) => [...prevPosts, post]);
+  }, []);
 
   const value = useMemo(
     () => ({
-      posts: formattedPosts,
+      posts,
       loading,
       error,
+      deletePostById,
+      addPost,
     }),
-    [error, loading, formattedPosts]
+    [posts, loading, error, deletePostById, addPost]
   );
 
   return (
@@ -37,9 +53,9 @@ const PostsProvider = ({ children }) => {
 };
 
 PostsProvider.propTypes = {
-  children: propTypes.oneOfType([
-    propTypes.arrayOf(propTypes.node),
-    propTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]).isRequired,
 };
 
