@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import GETPosts from "../fetch/GETPosts";
 
+import GetUsersPost from "../fetch/GETUsersPost";
+import useUserContext from "../../context/userContext/useUserContext";
 const useGetPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { token } = useUserContext();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -12,7 +14,7 @@ const useGetPosts = () => {
 
     const fetchPosts = async () => {
       try {
-        const posts = await GETPosts(signal);
+        const posts = await GetUsersPost(token, null, signal);
         if (posts) {
           setPosts(posts);
           setError(null);
@@ -35,7 +37,7 @@ const useGetPosts = () => {
       console.log("abort controller fired for cleanup");
       abortController.abort();
     };
-  }, []);
+  }, [token]);
 
   return { error, loading, posts };
 };
