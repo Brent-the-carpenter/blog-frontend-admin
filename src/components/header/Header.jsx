@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Login from "../Login/Login";
 import PropTypes from "prop-types";
 import { useState, useRef, useEffect } from "react";
-import useUserContext from "../../context/userContext/userHook";
+import useUserContext from "../../context/userContext/useUserContext";
 import useLogout from "../../api/hooks/useLogout";
 function Header({ setTheme, theme }) {
   const [showLogin, setShowLogin] = useState(false);
@@ -57,7 +57,7 @@ function Header({ setTheme, theme }) {
           <hr />
           <nav className="min-w-80 flex-1 content-end">
             <ul className="items center flex items-start justify-end gap-5 text-lg max-sm:justify-center">
-              {!user && (
+              {!user.userName && !user.token && (
                 <Link to={"signup"} className="link">
                   Sign Up
                 </Link>
@@ -82,10 +82,11 @@ function Header({ setTheme, theme }) {
                   Create Post
                 </Link>
               )}
-
-              <Link className="link" to={"posts"}>
-                Posts
-              </Link>
+              {user.token && (
+                <Link className="link" to={"posts"}>
+                  Posts
+                </Link>
+              )}
               <button onClick={changeTheme}>
                 {theme === "dark" ? "Light Mode" : "Dark Mode"}
               </button>
@@ -97,7 +98,7 @@ function Header({ setTheme, theme }) {
           <div
             ref={loginRef}
             tabIndex={-1}
-            className="p-2 transition-transform focus-within:translate-x-0 focus-within:opacity-100"
+            className="p-2 absolute top-56 focus-within:translate-x-0  focus-within:opacity-100"
             onBlur={handleBlur}
           >
             <Login loginRef={loginRef} />

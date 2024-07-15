@@ -1,11 +1,12 @@
-const baseURL = import.meta.env.VITE_API_URL;
+const baseURL = import.meta.env.VITE_POSTS_URI;
 
-const PUTPost = async (id, update) => {
-  const updatePostURL = `${baseURL}/posts/${id}`;
+const PUTPost = async (id, update, token) => {
+  const updatePostURL = `${baseURL}/${id}`;
   const response = await fetch(updatePostURL, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(update),
   });

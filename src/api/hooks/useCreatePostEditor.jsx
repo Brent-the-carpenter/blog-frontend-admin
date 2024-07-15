@@ -3,11 +3,17 @@ import { extractImages, dataURItoBlob } from "../../utils/imageHelpers";
 import { uploadImage } from "../../services/imageService";
 import useCreatePost from "./useCreatePost";
 
-const useUpdateEditor = (editorRef, thumbNail, title, category, published) => {
+const useCreatePostEditor = (
+  editorRef,
+  thumbNail,
+  title,
+  category,
+  published
+) => {
   const [loading, setLoading] = useState(false);
   const { createPost, success, error } = useCreatePost();
 
-  const updateEditor = async () => {
+  const createPostEditor = async () => {
     setLoading(true);
     let content = editorRef.current.getContent();
     const images = extractImages(content);
@@ -52,8 +58,7 @@ const useUpdateEditor = (editorRef, thumbNail, title, category, published) => {
       setLoading(false);
     }
   };
-
-  return { updateEditor, loading, success, error };
+  return { createPostEditor, loading, success, error };
 };
 
-export default useUpdateEditor;
+export default useCreatePostEditor;

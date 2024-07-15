@@ -2,8 +2,11 @@ import PropTypes from "prop-types";
 
 function CreatePostHeader({
   setTitle,
+  title,
   setCategory,
+  category,
   setPublished,
+
   published,
   setThumbnail,
 }) {
@@ -15,13 +18,15 @@ function CreatePostHeader({
           type="text"
           name="title"
           id="title"
+          value={title || ""}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
-      <div className="createPostHeader w-6">
+      <div className="createPostHeader ">
         <select
           name="category"
           id="category"
+          value={category ? category : ""}
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="">Please select a category</option>
@@ -59,6 +64,9 @@ CreatePostHeader.propTypes = {
   setPublished: PropTypes.func.isRequired,
   published: PropTypes.bool.isRequired,
   setThumbnail: PropTypes.func.isRequired,
+
+  title: PropTypes.string,
+  category: PropTypes.string,
 };
 
 export default CreatePostHeader;

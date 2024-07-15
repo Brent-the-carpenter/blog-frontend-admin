@@ -1,4 +1,4 @@
-import useUserContext from "../../context/userContext/userHook";
+import useUserContext from "../../context/userContext/useUserContext";
 import DELETEPost from "../fetch/DELETEPost";
 import { useState, useCallback } from "react";
 

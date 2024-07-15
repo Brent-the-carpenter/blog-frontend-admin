@@ -3,7 +3,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate } from "react-router-dom";
 import CreatePostHeader from "./createPostHeader";
 import ErrorComponent from "../Error/error";
-import useUpdateEditor from "../../api/hooks/useUpdateEditor";
+import useCreatePostEditor from "../../api/hooks/useCreatePostEditor";
 
 function CreatePost() {
   const editorRef = useRef(null);
@@ -12,7 +12,7 @@ function CreatePost() {
   const [published, setPublished] = useState(false);
   const [thumbNail, setThumbNail] = useState(null);
 
-  const { updateEditor, loading, success, error } = useUpdateEditor(
+  const { createPostEditor, loading, success, error } = useCreatePostEditor(
     editorRef,
     thumbNail,
     title,
@@ -37,10 +37,12 @@ function CreatePost() {
   }
 
   return (
-    <div className="h-full">
+    <div className=" flex flex-col h-full gap-2">
       {error && <ErrorComponent error={error} />}
       <CreatePostHeader
         setCategory={setCategory}
+        category={category}
+        title={title}
         setPublished={setPublished}
         setTitle={setTitle}
         published={published}
@@ -70,7 +72,11 @@ function CreatePost() {
             "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
         }}
       />
-      <button className="btn" onClick={updateEditor} disabled={loading}>
+      <button
+        className="btn max-sm:w-full max-w-36 self-center"
+        onClick={createPostEditor}
+        disabled={loading}
+      >
         {loading ? "Submitting..." : "Submit Blog Post"}
       </button>
     </div>

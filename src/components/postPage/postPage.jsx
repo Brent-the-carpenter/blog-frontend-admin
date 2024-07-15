@@ -34,13 +34,13 @@ function PostPage() {
       <hr />
       <br />
       <div>
-        <div className="">
+        <div className="postPageDiv">
           By{" "}
           <strong>
             <em>{author.user_name}</em>
           </strong>
         </div>
-        <div>
+        <div className="postPageDiv">
           Published: <strong>{createdAt}</strong>
         </div>
         <hr />

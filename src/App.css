@@ -62,7 +62,8 @@ body {
   .comments {
     color: var(--text-light);
   }
-  .postPage {
+  .postPage,
+  .postPageDiv {
     color: var(--text-light);
   }
 
@@ -115,6 +116,10 @@ body {
   }
   .header {
     background-color: var(--background-dark);
+  }
+  .postPage,
+  .postPageDiv {
+    color: var(--text-dark);
   }
 
   .postCard,

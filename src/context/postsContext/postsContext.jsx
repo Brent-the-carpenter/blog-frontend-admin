@@ -33,7 +33,18 @@ const PostsProvider = ({ children }) => {
     setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
   }, []);
   const addPost = useCallback((post) => {
+    post.createdAt = DateTime.fromISO(post.createdAt).toFormat("MM/dd/yyyy");
     setPosts((prevPosts) => [...prevPosts, post]);
+  }, []);
+  const updatePost = useCallback((updatedPost) => {
+    updatedPost.createdAt = DateTime.fromISO(updatedPost.createdAt).toFormat(
+      "MM/dd/yyyy"
+    );
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post._id === updatedPost._id ? updatedPost : post
+      )
+    );
   }, []);
 
   const value = useMemo(
@@ -43,8 +54,9 @@ const PostsProvider = ({ children }) => {
       error,
       deletePostById,
       addPost,
+      updatePost,
     }),
-    [posts, loading, error, deletePostById, addPost]
+    [posts, loading, error, deletePostById, addPost, updatePost]
   );
 
   return (
