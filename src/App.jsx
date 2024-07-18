@@ -5,8 +5,10 @@ import Header from "./components/header/Header";
 import Footer from "./components/Footer/Footer";
 import UserProvider from "./context/userContext/userContext";
 import PostsProvider from "./context//postsContext/postsContext";
+
 function App() {
   const [theme, setTheme] = useState("light");
+
   useEffect(() => {
     if (theme === "dark") {
       document.body.classList.add("dark");
@@ -17,6 +19,7 @@ function App() {
       document.body.classList.add("light");
     }
   }, [theme]);
+
   return (
     <div className=" flex flex-col gap-2 h-full">
       <UserProvider>

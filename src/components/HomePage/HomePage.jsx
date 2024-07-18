@@ -9,7 +9,9 @@ function HomePage() {
     return <h1>Loading...</h1>;
   }
   if (error) {
-    return <h1>{error}</h1>;
+    if (error !== "Unauthorized") {
+      return <h1>{error}</h1>;
+    }
   }
 
   return (

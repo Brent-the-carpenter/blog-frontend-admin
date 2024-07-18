@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 import { useState, useRef, useEffect } from "react";
 import useUserContext from "../../context/userContext/useUserContext";
 import useLogout from "../../api/hooks/useLogout";
+import defaultAvatar from "../../assets/user.png";
 function Header({ setTheme, theme }) {
   const [showLogin, setShowLogin] = useState(false);
   const loginRef = useRef(null);
   const linkRef = useRef(null);
-  const user = useUserContext();
+  const { userName, token, avatar } = useUserContext();
   const { success, error, logoutUser, setSuccess } = useLogout();
   const changeTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -47,8 +48,15 @@ function Header({ setTheme, theme }) {
 
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-end gap-4 pt-8 max-sm:justify-center">
-            <div className="text-xl font-bold">{user.userName}</div>
-            {user && user.token && (
+            {token ? (
+              <img
+                src={avatar || defaultAvatar}
+                alt="user avatar"
+                className="h-10 w-10 rounded-full"
+              />
+            ) : null}
+            <div className="text-xl font-bold">{userName}</div>
+            {token && (
               <Link to={"#"} className="link" onClick={logoutUser}>
                 Logout
               </Link>
@@ -57,13 +65,13 @@ function Header({ setTheme, theme }) {
           <hr />
           <nav className="min-w-80 flex-1 content-end">
             <ul className="items center flex items-start justify-end gap-5 text-lg max-sm:justify-center">
-              {!user.userName && !user.token && (
+              {!userName && token && (
                 <Link to={"signup"} className="link">
                   Sign Up
                 </Link>
               )}
 
-              {user.token ? (
+              {token ? (
                 <Link to={"/"} className="link">
                   Home
                 </Link>
@@ -77,12 +85,12 @@ function Header({ setTheme, theme }) {
                   Login
                 </Link>
               )}
-              {user.token && (
+              {token && (
                 <Link to={"createPost"} className="link">
                   Create Post
                 </Link>
               )}
-              {user.token && (
+              {token && (
                 <Link className="link" to={"posts"}>
                   Posts
                 </Link>
@@ -94,11 +102,11 @@ function Header({ setTheme, theme }) {
           </nav>
         </div>
 
-        {showLogin && !user.token && (
+        {showLogin && !token && (
           <div
             ref={loginRef}
             tabIndex={-1}
-            className="p-2 absolute top-56 focus-within:translate-x-0  focus-within:opacity-100"
+            className="flex justify-center"
             onBlur={handleBlur}
           >
             <Login loginRef={loginRef} />

@@ -13,7 +13,7 @@ export default function PostCard({ post, setDeletePostMsg }) {
   return (
     <>
       <div
-        className="postCard gap-4 w-3/4 max-sm:flex-col-reverse"
+        className="postCard gap-4 w-3/4  max-sm:flex-col-reverse"
         key={post._id}
       >
         <div className="flex justify-center flex-col gap-2">

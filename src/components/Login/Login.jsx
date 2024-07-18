@@ -43,7 +43,7 @@ function Login({ loginRef }) {
     <div>
       <form className="form" action="" method="POST" onSubmit={handleLogin}>
         <h1>Login</h1>
-        <div className="formControl">
+        <div className="formControl gap-1">
           <label htmlFor="user_name">UserName:</label>
           <input
             type="text"
